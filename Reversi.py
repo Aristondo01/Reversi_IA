@@ -63,4 +63,3 @@ class Reversi(object):
             if i >= 0 and i < self.column_count and j >= 0 and j < self.column_count and self.board[i][j] == tile and len(fichas_cambiadas) > 0:
                 return True
         return False
-
