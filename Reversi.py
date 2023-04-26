@@ -9,10 +9,12 @@ class Reversi(object):
         self.column_count = 8
         self.board = np.zeros((self.row_count, self.column_count))
         self.board[3][3] = 1
-        #self.board[2][2] = 1
         self.board[3][4] = -1
         self.board[4][3] = -1
         self.board[4][4] = 1
+
+        self.black = 0
+        self.white = 0
         
 
     def print_board(self):
@@ -20,9 +22,9 @@ class Reversi(object):
         for i in range(self.row_count):
             print_board += "\n║"
             for j in range(self.column_count):
-                if self.board[i][j] == 1:
+                if self.board[j][i] == 1:
                     print_board += "● ║"
-                elif self.board[i][j] == -1:
+                elif self.board[j][i] == -1:
                     print_board += "○ ║"
                 else:
                     print_board += "  ║"
@@ -63,3 +65,24 @@ class Reversi(object):
             if i >= 0 and i < self.column_count and j >= 0 and j < self.column_count and self.board[i][j] == tile and len(fichas_cambiadas) > 0:
                 return True
         return False
+
+    def make_move(self, move, tile):
+        x = move[0]
+        y = move[1]
+        print(x, y)
+        if self.board[x][y] != 0:
+            return
+        direcciones = ((-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1))
+        for direccion in direcciones:
+            fichas_cambiadas = []
+            i, j = x, y
+            i += direccion[0]
+            j += direccion[1]
+            while i >= 0 and i < self.row_count and j >= 0 and j < self.column_count and self.board[i][j] != 0 and self.board[i][j] != tile:
+                fichas_cambiadas.append((i, j))
+                i += direccion[0]
+                j += direccion[1]
+            if i >= 0 and i < self.column_count and j >= 0 and j < self.column_count and self.board[i][j] == tile and len(fichas_cambiadas) > 0:
+                for ficha in fichas_cambiadas:
+                    self.board[ficha[0]][ficha[1]] = tile
+                self.board[x][y] = tile
