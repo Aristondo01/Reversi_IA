@@ -10,7 +10,11 @@ class Agent(object):
         return self.select_movment()  
 
     def select_movment(self):
-        return self.posible_movements[0]
+        
+        if len(self.posible_movements):
+            return self.posible_movements[0]
+        else:
+            return None
     
     
     
