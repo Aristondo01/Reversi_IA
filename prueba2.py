@@ -3,7 +3,8 @@ from Reversi import Reversi
 import random
 import numpy as np
 
-minimax = Minimax()
+minimax1 = Minimax()
+minimax2 = Minimax()
 
 turn = -1
 
@@ -16,9 +17,9 @@ list = []
 for i in range(1):
     board = Reversi()
     while board.winner_exist() == 0:
-        board.print_board()
+        # board.print_board()
         if turn == -1:
-            move = minimax.minimax(board.board.copy(), turn, turn, 0)
+            move = minimax1.minimax(board.board.copy(), turn, turn, 0)
             if move:
                 # print(letras[move[0]], move[1] + 1, 'minimax')
                 print(move[0], move[1], 'Minimax')
@@ -26,20 +27,13 @@ for i in range(1):
                 print('pass')
             board.make_move(move, turn)
         else:
-            possible_moves = board.getValidMoves(turn)
-            move = ()
-            if possible_moves:
-                move = random.choice(possible_moves)
-            # move = minimax.minimax(board.board.copy(), turn, turn, 0)
-            # if move:
-            #     print(letras[move[0]], move[1] + 1, 'minimax2')
-            # board.make_move(move, turn)
-            move = input("Ingrese su movimiento> ")
-            move = eval(move)
+            move = minimax2.minimax(board.board.copy(), turn, turn, 0)
             if move:
-                # move = (letras.index(move[0]), int(move[1]) - 1)
-                pass
-            board.make_move(move, 1)
+                # print(letras[move[0]], move[1] + 1, 'minimax')
+                print(move[0], move[1], 'Minimax')
+            else:
+                print('pass')
+            board.make_move(move, turn)
 
         turn *= -1
 
@@ -49,10 +43,8 @@ for i in range(1):
     elif board.winner_exist() == -1:
         victoria = "Negro"
     list.append(victoria)
+    board.print_board()
 
 list = np.array(list)
 print("Cantidad de victorias")
 print(np.count_nonzero(list == "Negro"))
-
-# print("Gano:", victoria)
-# board.print_board()

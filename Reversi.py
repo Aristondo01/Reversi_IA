@@ -30,9 +30,10 @@ class Reversi(object):
         
 
     def print_board(self):
-        print_board ="╔══╦══╦══╦══╦══╦══╦══╦══╗"
+        print_board ="  0  1  2  3  4  5  6  7 \n"
+        print_board +=" ╔══╦══╦══╦══╦══╦══╦══╦══╗"
         for i in range(self.row_count):
-            print_board += "\n║"
+            print_board += "\n"+str(i)+"║"
             for j in range(self.column_count):
                 if self.board[j][i] == 1:
                     print_board += "● ║"
@@ -41,9 +42,9 @@ class Reversi(object):
                 else:
                     print_board += "  ║"
             if i != self.row_count - 1:
-                print_board += "\n╠══╬══╬══╬══╬══╬══╬══╬══╣"
+                print_board += "\n ╠══╬══╬══╬══╬══╬══╬══╬══╣"
             else:
-                print_board += "\n╚══╩══╩══╩══╩══╩══╩══╩══╝"
+                print_board += "\n ╚══╩══╩══╩══╩══╩══╩══╩══╝"
                 
         print(print_board)
     

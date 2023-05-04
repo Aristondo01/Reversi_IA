@@ -33,7 +33,9 @@ while not done:
                 REVERSI.make_move(movimiento, Blanco.color)
             
         turno*=-1
-        
+
+
+
 victoria="Empate"
 if REVERSI.winner_exist() == 1:
     victoria = "Blanco"
@@ -42,7 +44,7 @@ elif REVERSI.winner_exist() == -1:
 
 print("Gano:", victoria)
 REVERSI.print_board()
-
+Negro.stability2(REVERSI)
 
 
 # print(REVERSI.getValidMoves(1))
