@@ -28,7 +28,7 @@ class Minimax(object):
             if factor == 1:
                 reward_corner += 100
             else:
-                reward_corner += 200
+                reward_corner += 250
             
             
         return reward_corner
@@ -134,13 +134,21 @@ class Minimax(object):
 
         return H
         
+    def turn_corner(self,number_of_shifts):
+        if number_of_shifts < 25:
+            return 1.3
+        elif number_of_shifts < 50:
+            return 1.1
+        else:
+            return 1
+    
     def reward(self, board, turn, number_of_shifts, factor, move):
         
         total_reward = 0
         enemy_movements_size = len(board.getValidMoves(-turn))
         
-        total_reward += self.reward_amount_movements(enemy_movements_size) * factor 
-        total_reward += self.reward_corners(move,factor) * factor 
+        total_reward += self.reward_amount_movements(enemy_movements_size)
+        total_reward += self.reward_corners(move,factor) * self.turn_corner(number_of_shifts) * factor
         # total_reward += 10 * self.entropy(board, turn)
         
         score = board.black if turn == -1 else board.white
