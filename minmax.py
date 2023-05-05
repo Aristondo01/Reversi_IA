@@ -6,14 +6,16 @@ class Minimax(object):
     
     def __init__(self):
         self.search_depth = 3
-        self.corners = [(0,0), (0,7), (7,0), (7,7)]
+        self.corners = [[0,0], [0,7], [7,0], [7,7]]
         self.depth_stability = 2
         pass
     
     def reward_amount_movements(self,amount):
         if amount == 0:
             return 20
-        elif amount > 1 and amount < 3:
+        elif amount == 1:
+            return 5
+        elif amount > 2 and amount < 3:
             return 0
         elif amount > 3 and amount < 5:
             return -50
@@ -27,7 +29,8 @@ class Minimax(object):
                 reward_corner += 100
             else:
                 reward_corner += 200
-        
+            
+            
         return reward_corner
 
     def is_stable_ap1(self, board, row, col):
@@ -136,16 +139,16 @@ class Minimax(object):
         total_reward = 0
         enemy_movements_size = len(board.getValidMoves(-turn))
         
-        total_reward += 100 * self.reward_amount_movements(enemy_movements_size)
-        total_reward += 1000 * self.reward_corners(move,factor)
+        total_reward += self.reward_amount_movements(enemy_movements_size) * factor 
+        total_reward += self.reward_corners(move,factor) * factor 
         # total_reward += 10 * self.entropy(board, turn)
         
         score = board.black if turn == -1 else board.white
         other_score = board.black if turn == 1 else board.white
 
-        total_reward += (score - other_score) 
+        total_reward += (score - other_score) * factor 
     
-        return total_reward * factor 
+        return total_reward 
 
     def minimax(self, board_array, turn, maximize, depth):
         if depth <= self.search_depth:
