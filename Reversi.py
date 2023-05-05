@@ -35,9 +35,9 @@ class Reversi(object):
         for i in range(self.row_count):
             print_board += "\n"+str(i)+"║"
             for j in range(self.column_count):
-                if self.board[j][i] == 1:
+                if self.board[i][j] == 1:
                     print_board += "● ║"
-                elif self.board[j][i] == -1:
+                elif self.board[i][j] == -1:
                     print_board += "○ ║"
                 else:
                     print_board += "  ║"

@@ -1,9 +1,9 @@
-from minmax import Minimax
+from minmax2 import Minimax2
 from Reversi import Reversi
 import random
 import numpy as np
 
-minimax = Minimax()
+minimax = Minimax2()
 
 turn = -1
 
@@ -12,16 +12,27 @@ letras = 'abcdefgh'
 # board.make_move((4, 5), -1)
 # board.make_move((3, 5), 1)
 # print(board.getValidMoves(-1))
+
+board_array = np.array([[0., 0., 0., 0., 0., 0., 0., 0.],
+                        [0., 0., 0., 0., 0., 0., -1., 1.],
+                        [0., 0., -1., -1., -1., -1., -1., 1.],
+                        [0., 0., -1., -1., -1., 1., -1., 1.],
+                        [0.,-1., -1., -1., 1., 1., -1., 1.],
+                        [0., 0., -1., 1., 1., 1., 1., 1.],
+                        [0., 0., 1., 1., -1., -1., -1., 1.],
+                        [0., 1., 1., 1., 1., 1., 1., 1.]])
+
 list = []
 # TODO: arreglar los movimientos
 for i in range(1):
     board = Reversi()
+    # board.set_board(board_array)
     while board.winner_exist() == 0:
         board.print_board()
         if turn == -1:
-            move = minimax.minimax(board.board.copy(), turn, turn, 0)
+            move = minimax.minimax(board.board.copy(), turn, turn)
             if move:
-                print(letras[move[0]], move[1] + 1, 'minimax')
+                print(letras[move[1]], move[0] + 1, 'minimax')
                 # print(move[0], move[1], 'Minimax')
             else:
                 print('pass')
@@ -39,7 +50,7 @@ for i in range(1):
                 move = input("Ingrese su movimiento> ")
                 move = eval(move)
                 if move:
-                    move = (letras.index(move[0]), int(move[1]) - 1)
+                    move = (int(move[1]) - 1, letras.index(move[0]))
                     pass
             board.make_move(move, 1)
 
